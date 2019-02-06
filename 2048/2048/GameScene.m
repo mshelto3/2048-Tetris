@@ -7,10 +7,13 @@
 //
 
 #import "GameScene.h"
+#import <gamekit/gamekit.h>
 
 @implementation GameScene {
     SKShapeNode *_spinnyNode;
     SKLabelNode *_label;
+    SKNode *_touched;
+    BOOL isTouch;
 }
 
 - (void)didMoveToView:(SKView *)view {
@@ -19,7 +22,7 @@
     
     // Get label node from scene and store it for use later
     _label = (SKLabelNode *)[self childNodeWithName:@"//helloLabel"];
-    SKShapeNode *_tile = (SKShapeNode *)[self childNodeWithName:@"//"];
+    SKShapeNode *tile = (SKShapeNode *)[self childNodeWithName:@"//"];
     
     _label.alpha = 0.0;
     [_label runAction:[SKAction fadeInWithDuration:2.0]];
@@ -62,14 +65,29 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     // Run 'Pulse' action from 'Actions.sks'
+    UITouch* touch = [touches anyObject];
+    CGPoint pos = [touch locationInNode:self];
+    SKPhysicsBody* body = [self.physicsWorld bodyAtPoint:pos];
+    if(body){
+        isTouch = true;
+        _touched = body.node;
+    }
     [_label runAction:[SKAction actionNamed:@"Pulse"] withKey:@"fadeInOut"];
     
     for (UITouch *t in touches) {[self touchDownAtPoint:[t locationInNode:self]];}
 }
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
+    if(isTouch){
+        UITouch* touch = [touches anyObject];
+        CGPoint pos = [touch locationInNode:self];
+        CGPoint pre = [touch previousLocationInNode:self];
+        int nodeX = _touched.position.x + (pos.x - pre.x);
+        _touched.position = CGPointMake(nodeX, _touched.position.y);
+    }
     for (UITouch *t in touches) {[self touchMovedToPoint:[t locationInNode:self]];}
 }
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    isTouch = false;
     for (UITouch *t in touches) {[self touchUpAtPoint:[t locationInNode:self]];}
 }
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
