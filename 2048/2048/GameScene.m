@@ -10,61 +10,54 @@
 #import <gamekit/gamekit.h>
 
 @implementation GameScene {
-    SKShapeNode *_spinnyNode;
+    SKSpriteNode *_tile;
     SKLabelNode *_label;
     SKNode *_touched;
     BOOL isTouch;
+    SKPhysicsBody *_newBody;
+    var _num;
 }
 
 - (void)didMoveToView:(SKView *)view {
     // Setup your scene here
-    [self setPhysicsBody:[SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame]];
+    SKPhysicsBody* border = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
+    self.physicsBody = border;
+    self.physicsBody.friction = 0.0f;
     
     // Get label node from scene and store it for use later
-    _label = (SKLabelNode *)[self childNodeWithName:@"//helloLabel"];
-    SKShapeNode *tile = (SKShapeNode *)[self childNodeWithName:@"//"];
+    _label = (SKLabelNode *)[self childNodeWithName:@"//number"];
+    _tile = (SKSpriteNode *)[self childNodeWithName:@"//tile"];
+    _newBody = _tile.physicsBody;
+    _num = 0;
+    _label.text = _num;
     
     _label.alpha = 0.0;
     [_label runAction:[SKAction fadeInWithDuration:2.0]];
     
-    CGFloat w = (self.size.width + self.size.height) * 0.05;
     
-    // Create shape node to use during mouse interaction
-    _spinnyNode = [SKShapeNode shapeNodeWithRectOfSize:CGSizeMake(w, w) cornerRadius:w * 0.3];
-    _spinnyNode.lineWidth = 2.5;
-    
-    [_spinnyNode runAction:[SKAction repeatActionForever:[SKAction rotateByAngle:M_PI duration:1]]];
-    [_spinnyNode runAction:[SKAction sequence:@[
-                                                [SKAction waitForDuration:0.5],
-                                                [SKAction fadeOutWithDuration:0.5],
-                                                [SKAction removeFromParent],
-                                                ]]];
 }
 
 
 - (void)touchDownAtPoint:(CGPoint)pos {
-    SKShapeNode *n = [_spinnyNode copy];
-    n.position = pos;
-    n.strokeColor = [SKColor greenColor];
-    [self addChild:n];
+
 }
 
 - (void)touchMovedToPoint:(CGPoint)pos {
-    SKShapeNode *n = [_spinnyNode copy];
-    n.position = pos;
-    n.strokeColor = [SKColor blueColor];
-    [self addChild:n];
+
 }
 
 - (void)touchUpAtPoint:(CGPoint)pos {
-    SKShapeNode *n = [_spinnyNode copy];
-    n.position = pos;
-    n.strokeColor = [SKColor redColor];
-    [self addChild:n];
+
+}
+
+- (void)addBlock{
+    SKSpriteNode *newNode = [_tile copy];
+    [self addChild:newNode];
+    newNode.position = CGPointMake(-325, -150);
+    newNode.physicsBody = [_newBody copy];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    // Run 'Pulse' action from 'Actions.sks'
     UITouch* touch = [touches anyObject];
     CGPoint pos = [touch locationInNode:self];
     SKPhysicsBody* body = [self.physicsWorld bodyAtPoint:pos];
@@ -72,9 +65,6 @@
         isTouch = true;
         _touched = body.node;
     }
-    [_label runAction:[SKAction actionNamed:@"Pulse"] withKey:@"fadeInOut"];
-    
-    for (UITouch *t in touches) {[self touchDownAtPoint:[t locationInNode:self]];}
 }
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event{
     if(isTouch){
@@ -84,14 +74,14 @@
         int nodeX = _touched.position.x + (pos.x - pre.x);
         _touched.position = CGPointMake(nodeX, _touched.position.y);
     }
-    for (UITouch *t in touches) {[self touchMovedToPoint:[t locationInNode:self]];}
+    
 }
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     isTouch = false;
-    for (UITouch *t in touches) {[self touchUpAtPoint:[t locationInNode:self]];}
+    [self addBlock];
 }
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
-    for (UITouch *t in touches) {[self touchUpAtPoint:[t locationInNode:self]];}
+    
 }
 
 
