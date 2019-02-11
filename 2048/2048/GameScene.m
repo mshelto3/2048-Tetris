@@ -9,52 +9,61 @@
 #import "GameScene.h"
 #import <gamekit/gamekit.h>
 
+
+
 @implementation GameScene {
     SKSpriteNode *_tile;
-    SKLabelNode *_label;
+    SKLabelNode *_score;
+    SKLabelNode *_countdown;
     SKNode *_touched;
     BOOL isTouch;
     SKPhysicsBody *_newBody;
-    var _num;
+    int _sNum;
+    int _cNum;
+    NSTimer *_timer;
 }
 
 - (void)didMoveToView:(SKView *)view {
     // Setup your scene here
     SKPhysicsBody* border = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
+    border.restitution = 0.0;
     self.physicsBody = border;
     self.physicsBody.friction = 0.0f;
+    self.physicsWorld.contactDelegate = self;
+    
     
     // Get label node from scene and store it for use later
-    _label = (SKLabelNode *)[self childNodeWithName:@"//number"];
+    _score = (SKLabelNode *)[self childNodeWithName:@"//score"];
+    _sNum = 0;
+    _score.text = [NSString stringWithFormat:@"%d", _sNum];
+    _countdown = (SKLabelNode *)[self childNodeWithName:@"//countdown"];
+    _cNum = 60;
+    _countdown.text = [NSString stringWithFormat:@"%d", _cNum];
     _tile = (SKSpriteNode *)[self childNodeWithName:@"//tile"];
     _newBody = _tile.physicsBody;
-    _num = 0;
-    _label.text = _num;
-    
-    _label.alpha = 0.0;
-    [_label runAction:[SKAction fadeInWithDuration:2.0]];
     
     
+    _timer = [NSTimer scheduledTimerWithTimeInterval:1 repeats:YES block:^(NSTimer * _Nonnull timer) {
+        [self performSelectorOnMainThread:@selector(cDown) withObject:nil waitUntilDone:NO];}];
+    _timer = [NSTimer scheduledTimerWithTimeInterval:3 repeats:YES block:^(NSTimer * _Nonnull timer) {
+        [self performSelectorOnMainThread:@selector(addBlock) withObject:nil waitUntilDone:NO];
+    }];
+    
+    
 }
 
-
-- (void)touchDownAtPoint:(CGPoint)pos {
-
-}
-
-- (void)touchMovedToPoint:(CGPoint)pos {
-
-}
-
-- (void)touchUpAtPoint:(CGPoint)pos {
-
-}
 
 - (void)addBlock{
     SKSpriteNode *newNode = [_tile copy];
-    [self addChild:newNode];
-    newNode.position = CGPointMake(-325, -150);
     newNode.physicsBody = [_newBody copy];
+    [self addChild:newNode];
+    newNode.position = CGPointMake(3.251, -1.27);
+    
+}
+
+- (void)cDown{
+    _cNum--;
+    _countdown.text = [NSString stringWithFormat:@"%d", _cNum];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -78,15 +87,26 @@
 }
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     isTouch = false;
-    [self addBlock];
 }
-- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
+
+-(void)didBeginContact:(SKPhysicsContact *)contact
+{
+    NSLog(@"contact detected");
     
-}
-
-
--(void)update:(CFTimeInterval)currentTime {
-    // Called before each frame is rendered
+    SKPhysicsBody *firstBody;
+    SKPhysicsBody *secondBody;
+    
+    if (contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask)
+    {
+        firstBody = contact.bodyA;
+        secondBody = contact.bodyB;
+    }
+    else
+    {
+        firstBody = contact.bodyB;
+        secondBody = contact.bodyA;
+    }
+    
 }
 
 @end
