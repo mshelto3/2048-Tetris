@@ -8,6 +8,7 @@
 
 #import "GameScene.h"
 #import <gamekit/gamekit.h>
+#include <stdlib.h>
 
 
 
@@ -21,18 +22,21 @@
     int _sNum;
     int _cNum;
     NSTimer *_timer;
+    NSTimer *_timer2;
+    int set;
+    bool faster;
 }
 
 - (void)didMoveToView:(SKView *)view {
-    // Setup your scene here
+    // Setup screen physics body
     SKPhysicsBody* border = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
     border.restitution = 0.0;
+    border.friction = 0.0f;
     self.physicsBody = border;
-    self.physicsBody.friction = 0.0f;
     self.physicsWorld.contactDelegate = self;
     
     
-    // Get label node from scene and store it for use later
+    // initializations
     _score = (SKLabelNode *)[self childNodeWithName:@"//score"];
     _sNum = 0;
     _score.text = [NSString stringWithFormat:@"%d", _sNum];
@@ -41,13 +45,14 @@
     _countdown.text = [NSString stringWithFormat:@"%d", _cNum];
     _tile = (SKSpriteNode *)[self childNodeWithName:@"//tile"];
     _newBody = _tile.physicsBody;
+    set = 0;
+    faster = false;
     
-    
+    //timers
     _timer = [NSTimer scheduledTimerWithTimeInterval:1 repeats:YES block:^(NSTimer * _Nonnull timer) {
         [self performSelectorOnMainThread:@selector(cDown) withObject:nil waitUntilDone:NO];}];
-    _timer = [NSTimer scheduledTimerWithTimeInterval:3 repeats:YES block:^(NSTimer * _Nonnull timer) {
-        [self performSelectorOnMainThread:@selector(addBlock) withObject:nil waitUntilDone:NO];
-    }];
+    _timer2 = [NSTimer scheduledTimerWithTimeInterval:3 repeats:YES block:^(NSTimer * _Nonnull timer) {
+        [self performSelectorOnMainThread:@selector(addBlock) withObject:nil waitUntilDone:NO];}];
     
     
 }
@@ -56,8 +61,27 @@
 - (void)addBlock{
     SKSpriteNode *newNode = [_tile copy];
     newNode.physicsBody = [_newBody copy];
+    SKLabelNode *nodeNum = (SKLabelNode *)[newNode childNodeWithName:@"//number"];
+    int r = arc4random_uniform(4);
+    if(r == 0){
+        nodeNum.text = @"4";
+    }
+    else{
+        nodeNum.text = @"2";
+    }
     [self addChild:newNode];
-    newNode.position = CGPointMake(3.251, -1.27);
+    if(set == 0){
+        newNode.position = CGPointMake(3.251, -1.27);
+        set = 1;
+    }
+    else if(set == 1){
+        newNode.position = CGPointMake(-325, -1.27);
+        set = 2;
+    }
+    else if(set == 2){
+        newNode.position = CGPointMake(325, -1.27);
+        set = 2;
+    }
     
 }
 
@@ -93,20 +117,34 @@
 {
     NSLog(@"contact detected");
     
-    SKPhysicsBody *firstBody;
-    SKPhysicsBody *secondBody;
+    SKSpriteNode *a = (SKSpriteNode *)contact.bodyA.node;
+    SKSpriteNode *b = (SKSpriteNode *)contact.bodyB.node;
     
-    if (contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask)
-    {
-        firstBody = contact.bodyA;
-        secondBody = contact.bodyB;
-    }
-    else
-    {
-        firstBody = contact.bodyB;
-        secondBody = contact.bodyA;
-    }
+    if(a == self || b == self) return;
     
+    SKLabelNode *first = (SKLabelNode *)[a childNodeWithName:@"number"];
+    SKLabelNode *second = (SKLabelNode *)[b childNodeWithName:@"number"];
+    int one = first.text.intValue;
+    int two = second.text.intValue;
+    if(one == two){
+        _sNum += one*10;
+        if(_sNum > 100 && !faster){
+            [_timer2 invalidate];
+            _timer2 = [NSTimer scheduledTimerWithTimeInterval:2 repeats:YES block:^(NSTimer * _Nonnull timer) {
+                [self performSelectorOnMainThread:@selector(addBlock) withObject:nil waitUntilDone:NO];}];
+            faster = true;
+        }
+        _score.text = [NSString stringWithFormat:@"%d", _sNum];
+        one*=2;
+        if(one == 4096){
+            [a removeFromParent];
+            [b removeFromParent];
+            return;
+        }
+        first.text = [NSString stringWithFormat:@"%d", one];
+        [b removeFromParent];
+    }
+
 }
 
 @end
