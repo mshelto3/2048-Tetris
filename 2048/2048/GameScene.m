@@ -23,8 +23,13 @@
     int _cNum;
     NSTimer *_timer;
     NSTimer *_timer2;
+    NSTimer *_timer3;
     int set;
     bool faster;
+    bool faster2;
+    SKTransition *_fade;
+    SKScene *_gameOver;
+    SKView *_view;
 }
 
 - (void)didMoveToView:(SKView *)view {
@@ -47,13 +52,18 @@
     _newBody = _tile.physicsBody;
     set = 0;
     faster = false;
+    faster2 = false;
+    _fade = [SKTransition fadeWithDuration:5];
+    _gameOver = [SKScene nodeWithFileNamed:@"GameOver"];
+    _view = view;
+    _gameOver.scaleMode = SKSceneScaleModeAspectFill;
+    
     
     //timers
     _timer = [NSTimer scheduledTimerWithTimeInterval:1 repeats:YES block:^(NSTimer * _Nonnull timer) {
         [self performSelectorOnMainThread:@selector(cDown) withObject:nil waitUntilDone:NO];}];
     _timer2 = [NSTimer scheduledTimerWithTimeInterval:3 repeats:YES block:^(NSTimer * _Nonnull timer) {
         [self performSelectorOnMainThread:@selector(addBlock) withObject:nil waitUntilDone:NO];}];
-    
     
 }
 
@@ -80,13 +90,14 @@
     }
     else if(set == 2){
         newNode.position = CGPointMake(325, -1.27);
-        set = 2;
+        set = 0;
     }
     
 }
 
 - (void)cDown{
     _cNum--;
+    if(_cNum == 0) [_view presentScene:_gameOver transition:_fade];
     _countdown.text = [NSString stringWithFormat:@"%d", _cNum];
 }
 
@@ -130,9 +141,14 @@
         _sNum += one*10;
         if(_sNum > 100 && !faster){
             [_timer2 invalidate];
-            _timer2 = [NSTimer scheduledTimerWithTimeInterval:2 repeats:YES block:^(NSTimer * _Nonnull timer) {
+            _timer2 = [NSTimer scheduledTimerWithTimeInterval:1 repeats:YES block:^(NSTimer * _Nonnull timer) {
                 [self performSelectorOnMainThread:@selector(addBlock) withObject:nil waitUntilDone:NO];}];
             faster = true;
+        }
+        if(_sNum > 1000 && !faster2){
+            _timer3 = [NSTimer scheduledTimerWithTimeInterval:2 repeats:YES block:^(NSTimer * _Nonnull timer) {
+                [self performSelectorOnMainThread:@selector(addBlock) withObject:nil waitUntilDone:NO];}];
+            faster2 = true;
         }
         _score.text = [NSString stringWithFormat:@"%d", _sNum];
         one*=2;

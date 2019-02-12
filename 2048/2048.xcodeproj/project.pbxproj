@@ -18,6 +18,7 @@
 		AD8BB0F3220B7C3600D2C314 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD8BB0F1220B7C3600D2C314 /* LaunchScreen.storyboard */; };
 		AD8BB0FE220B7C3700D2C314 /* _048Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8BB0FD220B7C3700D2C314 /* _048Tests.m */; };
 		AD8BB109220B7C3700D2C314 /* _048UITests.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8BB108220B7C3700D2C314 /* _048UITests.m */; };
+		ADA2BF9722131D180098BDA1 /* GameOver.sks in Resources */ = {isa = PBXBuildFile; fileRef = ADA2BF9622131D180098BDA1 /* GameOver.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		AD8BB104220B7C3700D2C314 /* 2048UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = 2048UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD8BB108220B7C3700D2C314 /* _048UITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = _048UITests.m; sourceTree = "<group>"; };
 		AD8BB10A220B7C3700D2C314 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ADA2BF9622131D180098BDA1 /* GameOver.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameOver.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +116,7 @@
 				AD8BB0E4220B7C3600D2C314 /* Actions.sks */,
 				AD8BB0E6220B7C3600D2C314 /* GameScene.h */,
 				AD8BB0E7220B7C3600D2C314 /* GameScene.m */,
+				ADA2BF9622131D180098BDA1 /* GameOver.sks */,
 				AD8BB0E9220B7C3600D2C314 /* GameViewController.h */,
 				AD8BB0EA220B7C3600D2C314 /* GameViewController.m */,
 				AD8BB0EC220B7C3600D2C314 /* Main.storyboard */,
@@ -258,6 +261,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AD8BB0EE220B7C3600D2C314 /* Main.storyboard in Resources */,
+				ADA2BF9722131D180098BDA1 /* GameOver.sks in Resources */,
 				AD8BB0E3220B7C3600D2C314 /* GameScene.sks in Resources */,
 				AD8BB0F0220B7C3600D2C314 /* Assets.xcassets in Resources */,
 				AD8BB0F3220B7C3600D2C314 /* LaunchScreen.storyboard in Resources */,
@@ -521,6 +525,7 @@
 				AD8BB10F220B7C3700D2C314 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AD8BB110220B7C3700D2C314 /* Build configuration list for PBXNativeTarget "2048Tests" */ = {
 			isa = XCConfigurationList;
@@ -529,6 +534,7 @@
 				AD8BB112220B7C3700D2C314 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AD8BB113220B7C3700D2C314 /* Build configuration list for PBXNativeTarget "2048UITests" */ = {
 			isa = XCConfigurationList;
@@ -537,6 +543,7 @@
 				AD8BB115220B7C3700D2C314 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
