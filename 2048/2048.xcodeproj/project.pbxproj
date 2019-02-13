@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AD47E08A221478F2007A5C94 /* GameOver.m in Sources */ = {isa = PBXBuildFile; fileRef = AD47E089221478F2007A5C94 /* GameOver.m */; };
 		AD8BB0DE220B7C3600D2C314 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8BB0DD220B7C3600D2C314 /* main.m */; };
 		AD8BB0E1220B7C3600D2C314 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AD8BB0E0220B7C3600D2C314 /* AppDelegate.m */; };
 		AD8BB0E3220B7C3600D2C314 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = AD8BB0E2220B7C3600D2C314 /* GameScene.sks */; };
@@ -39,6 +40,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AD47E088221478E8007A5C94 /* GameOver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameOver.h; sourceTree = "<group>"; };
+		AD47E089221478F2007A5C94 /* GameOver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameOver.m; sourceTree = "<group>"; };
 		AD8BB0D9220B7C3600D2C314 /* 2048.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 2048.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD8BB0DD220B7C3600D2C314 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		AD8BB0DF220B7C3600D2C314 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -112,11 +115,13 @@
 			children = (
 				AD8BB0DF220B7C3600D2C314 /* AppDelegate.h */,
 				AD8BB0E0220B7C3600D2C314 /* AppDelegate.m */,
-				AD8BB0E2220B7C3600D2C314 /* GameScene.sks */,
 				AD8BB0E4220B7C3600D2C314 /* Actions.sks */,
+				AD8BB0E2220B7C3600D2C314 /* GameScene.sks */,
 				AD8BB0E6220B7C3600D2C314 /* GameScene.h */,
 				AD8BB0E7220B7C3600D2C314 /* GameScene.m */,
 				ADA2BF9622131D180098BDA1 /* GameOver.sks */,
+				AD47E088221478E8007A5C94 /* GameOver.h */,
+				AD47E089221478F2007A5C94 /* GameOver.m */,
 				AD8BB0E9220B7C3600D2C314 /* GameViewController.h */,
 				AD8BB0EA220B7C3600D2C314 /* GameViewController.m */,
 				AD8BB0EC220B7C3600D2C314 /* Main.storyboard */,
@@ -291,6 +296,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AD8BB0EB220B7C3600D2C314 /* GameViewController.m in Sources */,
+				AD47E08A221478F2007A5C94 /* GameOver.m in Sources */,
 				AD8BB0E1220B7C3600D2C314 /* AppDelegate.m in Sources */,
 				AD8BB0E8220B7C3600D2C314 /* GameScene.m in Sources */,
 				AD8BB0DE220B7C3600D2C314 /* main.m in Sources */,
