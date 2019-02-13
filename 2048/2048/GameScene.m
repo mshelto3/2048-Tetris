@@ -24,7 +24,10 @@
     NSTimer *_timer;
     NSTimer *_timer2;
     NSTimer *_timer3;
+    NSTimer *_timer4;
     int set;
+    int set2;
+    int set3;
     bool faster;
     bool faster2;
     SKTransition *_fade;
@@ -46,11 +49,13 @@
     _sNum = 0;
     _score.text = [NSString stringWithFormat:@"%d", _sNum];
     _countdown = (SKLabelNode *)[self childNodeWithName:@"//countdown"];
-    _cNum = 60;
+    _cNum = 120;
     _countdown.text = [NSString stringWithFormat:@"%d", _cNum];
     _tile = (SKSpriteNode *)[self childNodeWithName:@"//tile"];
     _newBody = _tile.physicsBody;
     set = 0;
+    set2 = 0;
+    set3 = 0;
     faster = false;
     faster2 = false;
     _fade = [SKTransition fadeWithDuration:5];
@@ -62,7 +67,7 @@
     //timers
     _timer = [NSTimer scheduledTimerWithTimeInterval:1 repeats:YES block:^(NSTimer * _Nonnull timer) {
         [self performSelectorOnMainThread:@selector(cDown) withObject:nil waitUntilDone:NO];}];
-    _timer2 = [NSTimer scheduledTimerWithTimeInterval:3 repeats:YES block:^(NSTimer * _Nonnull timer) {
+    _timer2 = [NSTimer scheduledTimerWithTimeInterval:2 repeats:YES block:^(NSTimer * _Nonnull timer) {
         [self performSelectorOnMainThread:@selector(addBlock) withObject:nil waitUntilDone:NO];}];
     
 }
@@ -95,9 +100,52 @@
     
 }
 
+- (void)addBlock2{
+    SKSpriteNode *newNode = [_tile copy];
+    newNode.physicsBody = [_newBody copy];
+    SKLabelNode *nodeNum = (SKLabelNode *)[newNode childNodeWithName:@"//number"];
+    int r = arc4random_uniform(4);
+    if(r == 0){
+        nodeNum.text = @"4";
+    }
+    else{
+        nodeNum.text = @"2";
+    }
+    [self addChild:newNode];
+    if(set2 == 0){
+        newNode.position = CGPointMake(150, -1.27);
+        set2 = 1;
+    }
+    else if(set2 == 1){
+        newNode.position = CGPointMake(-150, -1.27);
+        set2 = 0;
+    }
+    
+}
+
+- (void)addBlankBlock{
+    SKSpriteNode *newNode = [_tile copy];
+    newNode.physicsBody = [_newBody copy];
+    SKLabelNode *nodeNum = (SKLabelNode *)[newNode childNodeWithName:@"//number"];
+    [nodeNum removeFromParent];
+    [self addChild:newNode];
+    if(set3 == 0){
+        newNode.position = CGPointMake(150, 276);
+        set3 = 1;
+    }
+    else if(set3 == 1){
+        newNode.position = CGPointMake(-150, 276);
+        set3 = 0;
+    }
+    
+}
+
 - (void)cDown{
     _cNum--;
-    if(_cNum == 0) [_view presentScene:_gameOver transition:_fade];
+    if(_cNum == 0){
+        [_timer invalidate];
+        [_view presentScene:_gameOver transition:_fade];
+    }
     _countdown.text = [NSString stringWithFormat:@"%d", _cNum];
 }
 
@@ -140,14 +188,13 @@
     if(one == two){
         _sNum += one*10;
         if(_sNum > 100 && !faster){
-            [_timer2 invalidate];
-            _timer2 = [NSTimer scheduledTimerWithTimeInterval:1 repeats:YES block:^(NSTimer * _Nonnull timer) {
-                [self performSelectorOnMainThread:@selector(addBlock) withObject:nil waitUntilDone:NO];}];
+            _timer3 = [NSTimer scheduledTimerWithTimeInterval:2 repeats:YES block:^(NSTimer * _Nonnull timer) {
+                [self performSelectorOnMainThread:@selector(addBlock2) withObject:nil waitUntilDone:NO];}];
             faster = true;
         }
         if(_sNum > 1000 && !faster2){
-            _timer3 = [NSTimer scheduledTimerWithTimeInterval:2 repeats:YES block:^(NSTimer * _Nonnull timer) {
-                [self performSelectorOnMainThread:@selector(addBlock) withObject:nil waitUntilDone:NO];}];
+            _timer4 = [NSTimer scheduledTimerWithTimeInterval:2 repeats:YES block:^(NSTimer * _Nonnull timer) {
+                [self performSelectorOnMainThread:@selector(addBlankBlock) withObject:nil waitUntilDone:NO];}];
             faster2 = true;
         }
         _score.text = [NSString stringWithFormat:@"%d", _sNum];
