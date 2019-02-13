@@ -29,6 +29,9 @@ int _sNum;
     int set2;
     bool faster;
     bool faster2;
+    bool faster3;
+    bool faster4;
+    bool faster5;
     SKTransition *_fade;
     GameScene *_gameOver;
     SKView *_view;
@@ -57,6 +60,9 @@ int _sNum;
     set2 = 0;
     faster = false;
     faster2 = false;
+    faster3 = false;
+    faster4 = false;
+    faster5 = false;
     _fade = [SKTransition fadeWithDuration:5];
     _gameOver = (GameScene *)[SKScene nodeWithFileNamed:@"GameOver"];
     _view = view;
@@ -76,10 +82,39 @@ int _sNum;
     SKSpriteNode *newNode = [_tile copy];
     newNode.physicsBody = [_newBody copy];
     SKLabelNode *nodeNum = (SKLabelNode *)[newNode childNodeWithName:@"number"];
-    int r = arc4random_uniform(4);
+    int r = arc4random_uniform(100);
     if(r == 0){
+        nodeNum.text = @"512";
+        newNode.color = [UIColor lightGrayColor];
+    }
+    else if(r == 1 || r == 2 || r == 3){
+        nodeNum.text = @"256";
+        newNode.color = [UIColor grayColor];
+    }
+    else if(4 <= r && r <= 8){
+        nodeNum.text = @"128";
+        newNode.color = [UIColor redColor];
+    }
+    else if(9 <= r && r <= 14){
+        nodeNum.text = @"64";
+        newNode.color = [UIColor magentaColor];
+    }
+    else if(15 <= r && r <= 21){
+        nodeNum.text = @"32";
+        newNode.color = [UIColor orangeColor];
+    }
+    else if(22 <= r && r <= 29){
+        nodeNum.text = @"16";
+        newNode.color = [UIColor blueColor];
+    }
+    else if(30 <= r && r <= 38){
+        nodeNum.text = @"8";
+        newNode.color = [UIColor cyanColor];
+    }
+    else if(39 <= r && r <= 48){
         nodeNum.text = @"4";
         newNode.color = [UIColor greenColor];
+        
     }
     else{
         nodeNum.text = @"2";
@@ -172,16 +207,32 @@ int _sNum;
     int two = second.text.intValue;
     if(one == two){
         _sNum += one*10;
-        if(_sNum > 500 && !faster){
+        if(_sNum > 8000 && !faster5){
+            [_timer3 invalidate];
+            _timer3 = [NSTimer scheduledTimerWithTimeInterval:2 repeats:YES block:^(NSTimer * _Nonnull timer) {
+                [self performSelectorOnMainThread:@selector(addBlankBlock) withObject:nil waitUntilDone:NO];}];
+            faster5 = true;
+        }
+        if(_sNum > 5000 && !faster4){
             [_timer2 invalidate];
-            _timer2 = [NSTimer scheduledTimerWithTimeInterval:2 repeats:YES block:^(NSTimer * _Nonnull timer) {
+            _timer2 = [NSTimer scheduledTimerWithTimeInterval:1 repeats:YES block:^(NSTimer * _Nonnull timer) {
                 [self performSelectorOnMainThread:@selector(addBlock) withObject:nil waitUntilDone:NO];}];
+            faster4 = true;
+        }
+
+        if(_sNum > 3000 && !faster3){
             [_timer3 invalidate];
             _timer3 = [NSTimer scheduledTimerWithTimeInterval:3 repeats:YES block:^(NSTimer * _Nonnull timer) {
                 [self performSelectorOnMainThread:@selector(addBlankBlock) withObject:nil waitUntilDone:NO];}];
+            faster3 = true;
+        }
+        if(_sNum > 1000 && !faster){
+            [_timer2 invalidate];
+            _timer2 = [NSTimer scheduledTimerWithTimeInterval:2 repeats:YES block:^(NSTimer * _Nonnull timer) {
+                [self performSelectorOnMainThread:@selector(addBlock) withObject:nil waitUntilDone:NO];}];
             faster = true;
         }
-        if(_sNum > 100 && !faster2){
+        if(_sNum > 500 && !faster2){
             _timer3 = [NSTimer scheduledTimerWithTimeInterval:4 repeats:YES block:^(NSTimer * _Nonnull timer) {
                 [self performSelectorOnMainThread:@selector(addBlankBlock) withObject:nil waitUntilDone:NO];}];
             faster2 = true;

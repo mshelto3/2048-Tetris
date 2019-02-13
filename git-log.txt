@@ -1,0 +1,164 @@
+commit 46b577f164b916b507c623c8c9574ebb69de1ffe
+Author: Marc Shelton <mshelto3@slic-41.pods.bu.int>
+Date:   Wed Feb 13 13:16:15 2019 -0500
+
+    Colorsgit add -A!
+
+ 2048/2048.xcodeproj/project.pbxproj                |   8 +-
+ .../UserInterfaceState.xcuserstate                 | Bin 27212 -> 30578 bytes
+ .../WorkspaceSettings.xcsettings                   |  16 ++
+ .../xcdebugger/Breakpoints_v2.xcbkptlist           | 206 +++++++++++++++++----
+ .../AppIcon.appiconset/Contents.json               |  25 +++
+ 2048/2048/GameOver.h                               |  13 ++
+ 2048/2048/GameOver.m                               |  48 +++++
+ 2048/2048/GameOver.sks                             | Bin 4371 -> 7316 bytes
+ 2048/2048/GameScene.h                              |   2 +
+ 2048/2048/GameScene.m                              | 109 ++++++-----
+ 2048/2048/GameScene.sks                            | Bin 9819 -> 11359 bytes
+ 11 files changed, 349 insertions(+), 78 deletions(-)
+
+commit c154e03533fd624983c6f00d483de0e773c8279e
+Author: Marc Shelton <mshelto3@slic-34.pods.bu.int>
+Date:   Wed Feb 13 09:20:17 2019 -0500
+
+    more exciting
+
+ .../UserInterfaceState.xcuserstate                 | Bin 26628 -> 27212 bytes
+ .../xcdebugger/Breakpoints_v2.xcbkptlist           |  64 +++++++++++++--------
+ 2048/2048/GameScene.m                              |  63 +++++++++++++++++---
+ 2048/2048/GameScene.sks                            | Bin 9776 -> 9819 bytes
+ 4 files changed, 95 insertions(+), 32 deletions(-)
+
+commit f6ab0da8e46c02a05616f040951021cd357285a2
+Author: Marc Shelton <mshelto3@slic-34.pods.bu.int>
+Date:   Tue Feb 12 11:32:46 2019 -0500
+
+    works!
+
+ 2048/2048.xcodeproj/project.pbxproj                |   7 ++
+ .../UserInterfaceState.xcuserstate                 | Bin 24067 -> 26628 bytes
+ .../xcdebugger/Breakpoints_v2.xcbkptlist           |  74 +++++++++++++++------
+ 2048/2048/Actions.sks                              | Bin 1892 -> 1942 bytes
+ 2048/2048/GameOver.sks                             | Bin 0 -> 4371 bytes
+ 2048/2048/GameScene.m                              |  22 +++++-
+ 2048/2048/GameScene.sks                            | Bin 9747 -> 9776 bytes
+ 7 files changed, 79 insertions(+), 24 deletions(-)
+
+commit 7873524a5747dc0605cfadefea89ef033f526652
+Author: Marc Shelton <mshelto3@slic-34.pods.bu.int>
+Date:   Tue Feb 12 10:18:08 2019 -0500
+
+    commit!
+
+ .../UserInterfaceState.xcuserstate                 | Bin 23200 -> 24067 bytes
+ .../xcdebugger/Breakpoints_v2.xcbkptlist           |  74 +++++++++++++++----
+ 2048/2048/GameScene.m                              |  78 +++++++++++++++------
+ 2048/2048/GameScene.sks                            | Bin 9255 -> 9747 bytes
+ 4 files changed, 119 insertions(+), 33 deletions(-)
+
+commit a27e54ad6821555980d22e5ae8caff01d36e4618
+Author: Marc Shelton <mshelto3@slic-34.pods.bu.int>
+Date:   Mon Feb 11 17:34:30 2019 -0500
+
+    fixed issue
+
+ .../UserInterfaceState.xcuserstate                  | Bin 23059 -> 23200 bytes
+ 2048/2048/GameScene.sks                             | Bin 9255 -> 9255 bytes
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+
+commit 32905faac866c8b3e867b26aea0b74e26d41258b
+Author: Marc Shelton <mshelto3@slic-34.pods.bu.int>
+Date:   Mon Feb 11 17:29:13 2019 -0500
+
+    more stuff
+
+ .../UserInterfaceState.xcuserstate                 | Bin 21197 -> 23059 bytes
+ .../xcdebugger/Breakpoints_v2.xcbkptlist           |  36 +++++-----
+ 2048/2048/GameScene.m                              |  76 +++++++++++++--------
+ 2048/2048/GameScene.sks                            | Bin 10196 -> 9255 bytes
+ 4 files changed, 66 insertions(+), 46 deletions(-)
+
+commit cc4fb329221d3a46d3ea04ce70f29b5e9540c889
+Author: Marc Shelton <mshelto3@slic-34.pods.bu.int>
+Date:   Fri Feb 8 11:40:05 2019 -0500
+
+    add sprite & move
+
+ .../UserInterfaceState.xcuserstate                 | Bin 17937 -> 21197 bytes
+ .../xcdebugger/Breakpoints_v2.xcbkptlist           |  56 ++++++++++++++++++--
+ 2048/2048/GameScene.m                              |  58 +++++++++------------
+ 2048/2048/GameScene.sks                            | Bin 9181 -> 10196 bytes
+ 4 files changed, 76 insertions(+), 38 deletions(-)
+
+commit f14b5bfeeb4f2bef5eb94c066ec1b7c1a4029ffb
+Author: Marc Shelton <mshelto3@slic-34.pods.bu.int>
+Date:   Wed Feb 6 17:24:11 2019 -0500
+
+    Might change
+
+ .DS_Store                                           | Bin 6148 -> 6148 bytes
+ .../UserInterfaceState.xcuserstate                  | Bin 15578 -> 17937 bytes
+ .../xcdebugger/Breakpoints_v2.xcbkptlist            |  18 ++++++++++++++++++
+ 2048/2048/GameScene.m                               |  20 +++++++++++++++++++-
+ 2048/2048/GameScene.sks                             | Bin 9172 -> 9181 bytes
+ 5 files changed, 37 insertions(+), 1 deletion(-)
+
+commit 3b87573bc7f939eee20939cd15a0773c67dfc8cd
+Author: Marc Shelton <mshelto3@slic-34.pods.bu.int>
+Date:   Wed Feb 6 16:23:36 2019 -0500
+
+    collision
+
+ .DS_Store                                          | Bin 0 -> 6148 bytes
+ 2048/2048.xcodeproj/project.pbxproj                | 288 +++++++++++----------
+ .../UserInterfaceState.xcuserstate                 | Bin 9306 -> 15578 bytes
+ .../xcdebugger/Breakpoints_v2.xcbkptlist           |   5 +
+ .../mshelto3.xcuserdatad/xcschemes/2048.xcscheme   |  12 +-
+ .../xcschemes/xcschememanagement.plist             |   6 +-
+ 2048/2048/Actions.sks                              | Bin 0 -> 1892 bytes
+ .../Spaceship.imageset/Contents.json               |  21 ++
+ .../Spaceship.imageset/Spaceship.png               | Bin 0 -> 134723 bytes
+ 2048/2048/Base.lproj/Main.storyboard               |  18 +-
+ 2048/2048/{ViewController.h => GameScene.h}        |   8 +-
+ 2048/2048/GameScene.m                              |  84 ++++++
+ 2048/2048/GameScene.sks                            | Bin 0 -> 9172 bytes
+ 2048/2048/GameViewController.h                     |  15 ++
+ 2048/2048/GameViewController.m                     |  53 ++++
+ 2048/2048/Info.plist                               |   2 +
+ 2048/2048/ViewController.m                         |  29 ---
+ 17 files changed, 352 insertions(+), 189 deletions(-)
+
+commit 5999cb9f3529a8d12aee4ad648507ca69219c9c7
+Author: Marc Shelton <mshelto3@slic-34.pods.bu.int>
+Date:   Wed Feb 6 10:29:11 2019 -0500
+
+    first commit
+
+ 2048/2048.xcodeproj/project.pbxproj                | 530 +++++++++++++++++++++
+ .../project.xcworkspace/contents.xcworkspacedata   |   7 +
+ .../UserInterfaceState.xcuserstate                 | Bin 0 -> 9306 bytes
+ .../mshelto3.xcuserdatad/xcschemes/2048.xcscheme   | 111 +++++
+ .../xcschemes/xcschememanagement.plist             |  32 ++
+ 2048/2048/AppDelegate.h                            |  17 +
+ 2048/2048/AppDelegate.m                            |  51 ++
+ .../AppIcon.appiconset/Contents.json               |  68 +++
+ 2048/2048/Base.lproj/LaunchScreen.storyboard       |  27 ++
+ 2048/2048/Base.lproj/Main.storyboard               |  26 +
+ 2048/2048/Info.plist                               |  45 ++
+ 2048/2048/ViewController.h                         |  15 +
+ 2048/2048/ViewController.m                         |  29 ++
+ 2048/2048/main.m                                   |  16 +
+ 2048/2048Tests/Info.plist                          |  22 +
+ 2048/2048Tests/_048Tests.m                         |  39 ++
+ 2048/2048UITests/Info.plist                        |  22 +
+ 2048/2048UITests/_048UITests.m                     |  40 ++
+ 18 files changed, 1097 insertions(+)
+
+commit 0ccafb957225266549fce64e2254ab776c065e59
+Author: Marc Shelton <31292284+mshelto3@users.noreply.github.com>
+Date:   Wed Feb 6 10:12:05 2019 -0500
+
+    Initial commit
+
+ README.md | 1 +
+ 1 file changed, 1 insertion(+)
